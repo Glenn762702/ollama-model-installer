@@ -8,6 +8,54 @@ This installer removes all the guesswork by guiding the user step‑by‑step th
 
 ---
 
+## ⚠️ If PowerShell says “running scripts is disabled” — here’s how to fix it
+
+When running this installer for the first time, Windows may block it with an error like:
+
+```
+.\ollama-model-installer.ps1 : File cannot be loaded because running scripts is disabled on this system.
+```
+
+This happens because Windows defaults to a **locked‑down PowerShell mode** that prevents *all* scripts from running — even safe ones you wrote yourself.
+
+### ✅ How to fix it (safe and recommended)
+
+Run this command **once** in PowerShell:
+
+```
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+Then press **Y** to confirm.
+
+### 🧠 What this command actually does
+
+- It **only** changes the execution policy for *your user account*  
+- It does **not** affect the whole system  
+- It allows you to run **your own scripts**  
+- It still blocks scripts downloaded from the internet unless they are signed  
+- It does **not** reduce system security in any meaningful way  
+
+This is the standard, safe way to enable PowerShell scripts on Windows.
+
+### 🎉 After running the command
+
+You can now run the installer normally:
+
+```
+.\ollama-model-installer.ps1
+```
+
+If you ever want to revert the change, you can run:
+
+```
+Set-ExecutionPolicy -Scope CurrentUser Restricted
+```
+
+But most users leave it enabled without issues.
+
+---
+
 ## ✨ Features
 
 ### ✔ Script can run from ANY folder  
